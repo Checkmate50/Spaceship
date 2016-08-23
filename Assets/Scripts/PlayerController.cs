@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : NetworkBehaviour {
 
+    private Console console;
     private const float movespeed = 3f;
     public GameObject bullet;
 
@@ -12,13 +13,20 @@ public class PlayerController : NetworkBehaviour {
         GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
+    void Start () {
+        console = null;
+    }
+
     void Update () {
 
         if (!isLocalPlayer)
             return;
 
         if (Input.GetKeyDown(KeyCode.Space))
-            CmdFire();
+            console = CheckConsole();
+
+        if (console != null)
+            return;
 
         var x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * movespeed;
         var y = Input.GetAxisRaw("Vertical") * Time.deltaTime * movespeed;
@@ -26,9 +34,19 @@ public class PlayerController : NetworkBehaviour {
         transform.position += new Vector3(x, y);
     }
 
-    [Command]
-    void CmdFire() {
-        GameObject temp = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity);
-        NetworkServer.Spawn(temp);
+    public Console CheckConsole () {
+        if (console != null) {
+            console.closeConsole();
+            return null;
+        }
+        
+        foreach (Collider2D c in Physics2D.OverlapCircleAll(transform.position, 2f)) {
+            if (c.gameObject.tag == "Console") {
+                Console temp = c.gameObject.GetComponent<Console>();
+                temp.openConsole();
+                return temp;
+            }
+        }
+        return null;
     }
 }
