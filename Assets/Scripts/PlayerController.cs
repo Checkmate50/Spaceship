@@ -18,7 +18,10 @@ public class PlayerController : NetworkBehaviour {
             return;
 
         if (Input.GetKeyDown(KeyCode.Space))
-            Instantiate(bullet, transform.position, Quaternion.identity);
+        {
+            GameObject temp = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity);
+            NetworkServer.Spawn(temp);
+        }
 
         var x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * movespeed;
         var y = Input.GetAxisRaw("Vertical") * Time.deltaTime * movespeed;
