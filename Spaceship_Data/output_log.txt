@@ -2,9 +2,9 @@ Initialize engine version: 5.4.0f3 (a6d8d714de6f)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: Intel(R) HD Graphics 530 (ID=0x191b)
-    Vendor:   Intel
-    VRAM:     2111 MB
+    Renderer: NVIDIA GeForce GTX 960M (ID=0x139b)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
 Begin MonoManager ReloadAssembly
 Platform assembly: D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\UnityEngine.dll into Unity Child Domain
@@ -16,13 +16,28 @@ Platform assembly: D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\Uni
 Loading D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.117 seconds
+- Completed reload, in  0.048 seconds
 Platform assembly: D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Users\Checkmate\Unity\Spaceship\Spaceship_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 2.105779 ms
+UnloadTime: 27.820024 ms
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 386)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 386)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.327557 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 818.
+Total: 16.634680 ms (FindLiveObjects: 0.034222 ms CreateObjectMapping: 0.033333 ms MarkObjects: 16.558235 ms  DeleteObjects: 0.008000 ms)
+
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:7777}
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1ab8 -> priority: 1 
+  Thread -> id: 2f10 -> priority: 1 

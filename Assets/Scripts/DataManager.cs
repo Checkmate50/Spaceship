@@ -1,20 +1,42 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 
-public class DataManager : MonoBehaviour {
+public class DataManager : NetworkBehaviour {
 
+    private SyncListBool inUse = new SyncListBool();
+    [SerializeField]
+    private int consoleCount;
     List<Enemy> enemies;
     List<Projectile> projectiles;
+    private static DataManager instance;
 
-	// Use this for initialization
-	void Start () {
-	
+	void Awake () { 
+        if (instance != null)
+            Destroy(gameObject);
+        instance = this;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public override void OnStartServer() {
+        for (int i = 0; i < consoleCount; i++)
+            inUse.Add(false);
+    }
+
+    void OnDestroy() {
+        instance = null;
+    }
+
+    public static DataManager Instance() {
+        return instance;
+    }
+
+    public void ToggleUse(int id) {
+        inUse[id] = !inUse[id];
+    }
+
+    public bool IsInUse(int id) {
+        return inUse[id];
+    }
 
     public List<Vector2> getEnemylocations () {
         List<Vector2> locations = new List<Vector2>();

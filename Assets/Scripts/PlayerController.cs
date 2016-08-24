@@ -6,15 +6,10 @@ public class PlayerController : NetworkBehaviour {
 
     private Console console;
     private const float movespeed = 3f;
-    public GameObject bullet;
 
     public override void OnStartLocalPlayer()
     {
         GetComponent<SpriteRenderer>().color = Color.blue;
-    }
-
-    void Start () {
-        console = null;
     }
 
     void Update () {
@@ -36,17 +31,26 @@ public class PlayerController : NetworkBehaviour {
 
     public Console CheckConsole () {
         if (console != null) {
-            console.closeConsole();
+            console.CloseConsole();
+            CmdToggleConsoleUse(console.GetUseID());
             return null;
         }
         
-        foreach (Collider2D c in Physics2D.OverlapCircleAll(transform.position, 2f)) {
+        foreach (Collider2D c in Physics2D.OverlapCircleAll(transform.position, 1.3f)) {
             if (c.gameObject.tag == "Console") {
                 Console temp = c.gameObject.GetComponent<Console>();
-                temp.openConsole();
-                return temp;
+                if (temp.OpenConsole()) {
+                    CmdToggleConsoleUse(temp.GetUseID());
+                    return temp;
+                }
+                return null;
             }
         }
         return null;
+    }
+
+    [Command]
+    private void CmdToggleConsoleUse(int id) {
+        DataManager.Instance().ToggleUse(id);
     }
 }

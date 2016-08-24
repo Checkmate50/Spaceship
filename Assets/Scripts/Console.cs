@@ -1,39 +1,36 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public abstract class Console : MonoBehaviour {
+public class Console : NetworkBehaviour {
 
-    private bool inUse;
     protected Transform canvas;
+    [SerializeField]
+    private int useID;
 
     protected virtual void Awake () {
-        inUse = false;
         canvas = GameObject.Find("Canvas").transform;
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
-
-    protected abstract void OpenUI ();
-
-    protected abstract void CloseUI ();
-
-    public void openConsole () {
-        if (inUse)
-            return;
-        inUse = true;
-        OpenUI();
     }
 
-    public void closeConsole () {
-        inUse = false;
+    protected virtual void OpenUI() { }
+    protected virtual void CloseUI() { }
+       
+    public bool OpenConsole () {
+        if (DataManager.Instance().IsInUse(useID))
+            return false;
+        OpenUI();
+        return true;
+    }
+
+    public void CloseConsole () {
         CloseUI();
+    }
+
+    public int GetUseID() {
+        return useID;
     }
 }
